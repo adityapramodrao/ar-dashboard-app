@@ -50,3 +50,28 @@ export const refreshAccessToken = createAsyncThunk(
     }
   }
 );
+
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (
+    { firstName, lastName, phone, email, username, password },
+    thunkAPI
+  ) => {
+    try {
+      const res = await apiClient.post("/users/add", {
+        firstName,
+        lastName,
+        phone,
+        email,
+        username,
+        password,
+      });
+
+      return res.data; // DummyJSON returns created user object
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || "Registration failed"
+      );
+    }
+  }
+);

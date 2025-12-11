@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, fetchUserMe, refreshAccessToken } from "./authThunks";
+import { loginUser, fetchUserMe, refreshAccessToken, registerUser } from "./authThunks";
 
 const initialState = {
   user: null,
@@ -7,6 +7,7 @@ const initialState = {
   refreshToken: localStorage.getItem("refreshToken"),
   loading: false,
   error: null,
+  registeredUser: null,
 };
 
 const authSlice = createSlice({
@@ -58,6 +59,24 @@ const authSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       localStorage.setItem("accessToken", action.payload.accessToken);
     });
+
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.registeredUser = null; // reset before new register
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+
+        // store new user for redirect
+        state.registeredUser = action.payload;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Registration failed";
+      });
   },
 });
 

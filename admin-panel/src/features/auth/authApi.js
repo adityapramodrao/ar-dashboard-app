@@ -5,10 +5,10 @@ const API_URL = axios.create({
     headers: { "Content-Type": "application/json" },
 });
 
-API_URL.interceptors.request.use((config) => {
-    const token = localStorage.getItem("accessToken");
-    if (token) config.headers.Authorization = `Bearer ${token}`;
-    return config
-})
+// API_URL.interceptors.request.use((config) => {
+//     const token = localStorage.getItem("accessToken");
+//     if (token) config.headers.Authorization = `Bearer ${token}`;
+//     return config
+// })
 
 export default API_URL;

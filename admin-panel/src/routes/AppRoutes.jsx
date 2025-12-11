@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom"
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "../pages/NotFound";
 
 
 
@@ -14,9 +15,9 @@ export default function AppRoutes() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-
+                
                 <Route
                     path="/dashboard"
                     element={
@@ -26,7 +27,7 @@ export default function AppRoutes() {
                     }
                 />
 
-                <Route path="*" element={<Navigate to="/login" replace />} />
+               <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>
 
