@@ -1,20 +1,21 @@
-import { Link } from "react-router-dom";
-import { X, Home, User, Settings, LogOut } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { X, Home, User, ShoppingCart, LogOut } from "lucide-react";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
     <>
       {/* Overlay for mobile */}
       <div
-        className={`fixed inset-0 bg-black/40 lg:hidden transition-opacity 
-        ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className={`fixed inset-0 bg-black/40 lg:hidden transition-opacity ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
         onClick={() => setIsOpen(false)}
       ></div>
 
       {/* Sidebar */}
       <div
         className={`
-          fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 
+          fixed top-0 left-0 h-full w-64 bg-white shadow-2xl z-50 
           flex flex-col justify-between transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           lg:translate-x-0
@@ -36,26 +37,45 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
           {/* Menu Items */}
           <nav className="mt-5 px-4 space-y-2">
-            <Link
+            <NavLink
               to="/dashboard"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 hover:text-purple-600 text-gray-700 transition"
+              end // important: prevents dashboard staying active on child routes
+              className={({ isActive }) =>
+                `flex items-center gap-3 p-3 rounded-lg transition ${
+                  isActive
+                    ? "bg-purple-50 text-purple-600"
+                    : "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                }`
+              }
             >
               <Home size={20} /> Dashboard
-            </Link>
+            </NavLink>
 
-            <Link
-              to="/profile"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 hover:text-purple-600 text-gray-700 transition"
+            <NavLink
+              to="/dashboard/products"
+              className={({ isActive }) =>
+                `flex items-center gap-3 p-3 rounded-lg transition ${
+                  isActive
+                    ? "bg-purple-50 text-purple-600"
+                    : "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                }`
+              }
             >
-              <User size={20} /> Profile
-            </Link>
+              <ShoppingCart size={20} /> Products
+            </NavLink>
 
-            <Link
-              to="/settings"
-              className="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 hover:text-purple-600 text-gray-700 transition"
+            <NavLink
+              to="/dashboard/users"
+              className={({ isActive }) =>
+                `flex items-center gap-3 p-3 rounded-lg transition ${
+                  isActive
+                    ? "bg-purple-50 text-purple-600"
+                    : "text-gray-700 hover:bg-purple-50 hover:text-purple-600"
+                }`
+              }
             >
-              <Settings size={20} /> Settings
-            </Link>
+              <User size={20} /> Users
+            </NavLink>
           </nav>
         </div>
 

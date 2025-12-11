@@ -8,6 +8,8 @@ import NotFound from "../pages/NotFound";
 
 
 const Dashboard = lazy(() => import("../pages/Dashboard/index"));
+const Products = lazy(() => import("../pages/Product/Products"));
+const UserList = lazy(() => import("../pages/User/UserList"))
 
 
 export default function AppRoutes() {
@@ -25,8 +27,11 @@ export default function AppRoutes() {
                             <Dashboard />
                         </ProtectedRoute>
                     }
-                />
-
+                >
+                    <Route index element={<div>Dashboard Home Content</div>} />
+                    <Route path="products" element={<Products />} />
+                    <Route path="users" element={<UserList />} />
+                </Route>
                <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>

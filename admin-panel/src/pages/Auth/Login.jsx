@@ -12,21 +12,35 @@ export default function Login() {
 
   const { loading, error } = useSelector((state) => state.auth);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+ const handleLogin = (e) => {
+  e.preventDefault();
 
-    const payload = {
-      username: email,     // API uses username
-      password: password,
-      expiresInMins: 30,
-    };
-
-    dispatch(loginUser(payload)).then((res) => {
-      if (res.meta.requestStatus === "fulfilled") {
-        navigate("/dashboard"); // dashboard
-      }
-    });
+  const payload = {
+    username: email, // API uses username
+    password: password,
+    expiresInMins: 30,
   };
+
+  dispatch(loginUser(payload)).then((res) => {
+    if (res.meta.requestStatus === "fulfilled") {
+      // ✅ Store token in localStorage
+      if (res.payload?.token) {
+        localStorage.setItem("token", res.payload.token);
+      }
+
+      // Optional: store user data
+      if (res.payload?.id) {
+        localStorage.setItem("user", JSON.stringify(res.payload));
+      }
+
+      // Navigate to dashboard
+      navigate("/dashboard");
+    } else {
+      alert("Login failed!");
+    }
+  });
+};
+
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-white to-gray-100">
