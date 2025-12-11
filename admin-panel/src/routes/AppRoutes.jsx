@@ -4,6 +4,7 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../pages/NotFound";
+import KPIComponent from "../pages/Dashboard/KPIComponent";
 
 
 
@@ -28,7 +29,7 @@ export default function AppRoutes() {
                         </ProtectedRoute>
                     }
                 >
-                    <Route index element={<div>Dashboard Home Content</div>} />
+                    <Route index element={<KPIComponent />} />
                     <Route path="products" element={<Products />} />
                     <Route path="users" element={<UserList />} />
                 </Route>

@@ -30,7 +30,6 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     });
-
     // LOGIN — SUCCESS
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
