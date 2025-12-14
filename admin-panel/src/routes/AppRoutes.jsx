@@ -5,6 +5,7 @@ import Register from "../features/auth/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../pages/NotFound";
 import KPIComponent from "../features/Dashboard/KPIComponent";
+import ProductDetail from "../features/Product/ProductDetail";
 
 
 
@@ -31,6 +32,7 @@ export default function AppRoutes() {
                 >
                     <Route index element={<KPIComponent />} />
                     <Route path="products" element={<Products />} />
+                    <Route path="products/details/:id" element={<ProductDetail />} />
                     <Route path="users" element={<UserList />} />
                 </Route>
                <Route path="*" element={<NotFound />} />

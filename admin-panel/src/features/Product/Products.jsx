@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AllProducts } from "../Product/Auth/ProductThunk";
 import Pagination from "../../pages/Pagination";
 import { Edit, Trash } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -95,12 +96,16 @@ const Products = () => {
                   <td className="px-4 py-2">${product.price}</td>
                   <td className="px-4 py-2">{product.stock}</td>
                   <td className="px-4 py-2 flex gap-2">
-                    <button
+                    {/* <button
                       onClick={() => handleEdit(product.id)}
                       className="text-blue-500 hover:text-blue-700"
+                    > */}
+                    <Link
+                      to={`/dashboard/products/details/${product.id}`}
+                      className="text-blue-500 hover:text-blue-700"
                     >
-                      <Edit size={18} />
-                    </button>
+                      View
+                    </Link>
                     <button
                       onClick={() => handleDelete(product.id)}
                       className="text-red-500 hover:text-red-700"
