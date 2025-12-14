@@ -1,16 +1,16 @@
 import React, { lazy, Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom"
-import Login from "../pages/Auth/Login";
-import Register from "../pages/Auth/Register";
+import { Routes, Route } from "react-router-dom"
+import Login from "../features/auth/Login";
+import Register from "../features/auth/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../pages/NotFound";
-import KPIComponent from "../pages/Dashboard/KPIComponent";
+import KPIComponent from "../features/Dashboard/KPIComponent";
 
 
 
-const Dashboard = lazy(() => import("../pages/Dashboard/index"));
-const Products = lazy(() => import("../pages/Product/Products"));
-const UserList = lazy(() => import("../pages/User/UserList"))
+const Dashboard = lazy(() => import("../features/Dashboard/index"));
+const Products = lazy(() => import("../features/Product/Products"));
+const UserList = lazy(() => import("../features/User/UserList"))
 
 
 export default function AppRoutes() {

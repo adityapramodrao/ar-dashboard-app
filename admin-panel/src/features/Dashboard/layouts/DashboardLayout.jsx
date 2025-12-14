@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { useDispatch } from "react-redux";
-import { fetchUserMe } from "../../features/auth/authThunks";
+import { fetchUserMe } from "../../auth/authThunks";
 
 const DashboardLayout = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);

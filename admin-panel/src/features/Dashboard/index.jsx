@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import DashboardLayout from "../layouts/DashboardLayout";
-import KPIComponent from "./KPIComponent";
+import DashboardLayout from "./layouts/DashboardLayout";
+
 
 const Dashboard = () => {
   const user = useSelector((state) => state.auth.user);
