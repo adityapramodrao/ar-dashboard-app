@@ -1,9 +1,10 @@
 // src/features/Product/Auth/productSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { AllProducts } from "./ProductThunk";
+import { AllProducts, productDetailsApi } from "./ProductThunk";
 
 const initialState = {
   productD: [],
+  productDetail: null,
   total: 0,
   loading: false,
   error: null
@@ -27,6 +28,21 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+
+    builder
+      .addCase(productDetailsApi.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(productDetailsApi.fulfilled, (state, action) => {
+        state.loading = false;
+        state.productDetail = action.payload; // ✅ FIX
+      })
+      .addCase(productDetailsApi.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+
+    
   }
 });
 

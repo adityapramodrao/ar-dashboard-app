@@ -18,3 +18,17 @@ export const AllProducts = createAsyncThunk(
     }
   }
 );
+
+export const productDetailsApi = createAsyncThunk(
+  "productAuth/productDetailsApi",
+  async ({ id }, thunkApi) => {
+      try {
+        const response = await api_client.get(`products/${id}`);
+        return response.data;
+      } catch (error) {
+        return thunkApi.rejectWithValue(
+          error.response?.data || "Fetching Product Failed"
+        );
+      }
+  }
+)

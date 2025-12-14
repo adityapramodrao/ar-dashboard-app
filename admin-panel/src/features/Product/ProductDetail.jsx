@@ -1,27 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Heart, ArrowLeft } from "lucide-react";
+import { productDetailsApi } from "../Product/Auth/ProductThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const productImages = [
-  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
-  "https://images.unsplash.com/photo-1520975922327-15d93d4b8b69",
-  "https://images.unsplash.com/photo-1542060748-10c28b62716b",
-  "https://images.unsplash.com/photo-1530845641048-7a9e6b4c37b8",
-];
 
 const ProductDetail = () => {
-  const [selectedImage, setSelectedImage] = useState(productImages[0]);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const { productDetail } = useSelector(
+    (state) => state.productAuth
+  );
+
   const [quantity, setQuantity] = useState(1);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(productDetailsApi({ id }));
+    }
+
+    // Update selected image whenever productDetail changes
+    if (productDetail?.images?.length) {
+      setSelectedImage(productDetail.images[0]);
+    }
+  }, [dispatch, id, productDetail]);
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        
+
         {/* LEFT: IMAGE GALLERY */}
         <div className="flex gap-4">
           {/* Thumbnails */}
-          
+
           <div className="flex flex-col gap-3">
-            {productImages.map((img, index) => (
+            {productDetail?.images?.map((img, index) => (
               <img
                 key={index}
                 src={img}
@@ -49,8 +66,8 @@ const ProductDetail = () => {
         {/* RIGHT: PRODUCT INFO */}
         <div>
           <div className="flex justify-between items-start">
-            <h1 className="text-3xl font-semibold">Shirt Bodysuit</h1>
-            <span className="text-xl font-semibold">$70.00</span>
+            <h1 className="text-3xl font-semibold">{productDetail?.title}</h1>
+            <span className="text-xl font-semibold">${productDetail?.price}</span>
           </div>
 
           {/* Rating */}
@@ -59,8 +76,8 @@ const ProductDetail = () => {
           </div>
 
           <p className="text-sm text-gray-500 mt-3">
-            REF 0652/168/800 <br />
-            The model is wearing size M | Height: 5.7 ft / 174 cm
+            REF {productDetail?.sku} <br />
+            The model is wearing size M | Widht : {productDetail?.weight}:
           </p>
 
           <button className="text-sm underline mt-2">Size Guide</button>
@@ -95,7 +112,7 @@ const ProductDetail = () => {
               >
                 -
               </button>
-              <span className="px-4 py-2">{quantity}</span>
+              <span className="px-4 py-2">{productDetail?.stock}</span>
               <button
                 className="px-4 py-2"
                 onClick={() => setQuantity((q) => q + 1)}
@@ -118,8 +135,7 @@ const ProductDetail = () => {
           <div className="mt-10">
             <h3 className="text-lg font-semibold mb-2">Product Information</h3>
             <p className="text-sm text-gray-600">
-              The insulated jacket is made of leather. A light layer of insulation.
-              Details: stand-up collar, zipper, two pockets on the sides.
+              {productDetail?.description}
             </p>
           </div>
 

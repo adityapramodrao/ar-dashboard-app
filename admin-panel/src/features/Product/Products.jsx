@@ -1,7 +1,7 @@
 // src/pages/Products.jsx
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AllProducts } from "../Product/Auth/ProductThunk";
+import { AllProducts, productDetailsApi } from "../Product/Auth/ProductThunk";
 import Pagination from "../../pages/Pagination";
 import { Edit, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -19,6 +19,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(AllProducts({ page }));
+    
   }, [dispatch, page]);
 
   const handleDelete = (id) => {
@@ -27,8 +28,12 @@ const Products = () => {
     }
   };
 
-  const handleEdit = (id) => {
-    alert("Edit product with id: " + id);
+  // const handleEdit = (id) => {
+  //   alert("Edit product with id: " + id);
+  // };
+
+  const handleView = (id) => {
+    dispatch(productDetailsApi({id}))
   };
 
   const handleAdd = () => {
@@ -103,6 +108,7 @@ const Products = () => {
                     <Link
                       to={`/dashboard/products/details/${product.id}`}
                       className="text-blue-500 hover:text-blue-700"
+                      onClick={() => handleView(product.id)}
                     >
                       View
                     </Link>
